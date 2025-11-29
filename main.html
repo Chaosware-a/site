@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Info do Usuário</title>
+    <meta charset="utf-8">
+</head>
+<body>
+    <h1>Informações do Usuário</h1>
+
+    <p><b>IP Público:</b> <span id="ip"></span></p>
+    <p><b>Navegador:</b> <span id="browser"></span></p>
+    <p><b>Sistema Operacional:</b> <span id="os"></span></p>
+    <p><b>Resolução:</b> <span id="resolution"></span></p>
+    <p><b>Idioma:</b> <span id="lang"></span></p>
+    <p><b>Fuso Horário:</b> <span id="timezone"></span></p>
+
+<script>
+// === IP Público ===
+fetch("https://api.ipify.org?format=json")
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById("ip").innerText = data.ip;
+    });
+
+// === Navegador ===
+document.getElementById("browser").innerText = navigator.userAgent;
+
+// === Sistema Operacional (simples) ===
+let os = "Desconhecido";
+const ua = navigator.userAgent;
+
+if (ua.includes("Windows")) os = "Windows";
+else if (ua.includes("Android")) os = "Android";
+else if (ua.includes("iPhone")) os = "iOS";
+else if (ua.includes("Mac")) os = "macOS";
+else if (ua.includes("Linux")) os = "Linux";
+
+document.getElementById("os").innerText = os;
+
+// === Resolução ===
+document.getElementById("resolution").innerText = 
+    `${window.screen.width} x ${window.screen.height}`;
+
+// === Idioma ===
+document.getElementById("lang").innerText = navigator.language;
+
+// === Timezone ===
+document.getElementById("timezone").innerText = Intl.DateTimeFormat().resolvedOptions().timeZone;
+</script>
+
+</body>
+</html>
